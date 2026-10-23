@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo · Gram</title>
+<meta name="description" content="Test page for the Gram browser: a video file, a video stream and a camera test.">
+<link rel="icon" href="../icon.png">
+<link rel="stylesheet" href="../style.css">
+<style>
+  video { width: 100%; aspect-ratio: 16 / 9; display: block; border-radius: 16px; background: #000; object-fit: cover; }
+  .card h2 { margin-bottom: 10px; }
+  #camera-status { margin-top: 10px; }
+  #camera-preview { display: none; margin-top: 12px; }
+</style>
+</head>
+<body>
+<main>
+<header><a href="../"><img src="../icon.png" alt=""></a>
+<a href="../" class="brand">Gram<small>Demo page</small></a></header>
+<h1>Demo</h1>
+<div class="stack">
+  <p class="lead card">A test page for Gram. Both videos and their pictures were made by the Gram developer for this page and may be saved freely.</p>
+
+  <section class="card">
+    <h2>Video file (MP4)</h2>
+    <video src="aurora.mp4" poster="aurora.jpg" controls playsinline preload="metadata"></video>
+    <p class="muted" style="margin-top:10px">Aurora Night — Ambient Loop · 2:14 · © 2026 Gram, free to save and share.</p>
+  </section>
+
+  <section class="card">
+    <h2>Video stream (HLS)</h2>
+    <video src="hls/index.m3u8" poster="ocean.jpg" controls playsinline preload="metadata"></video>
+    <p class="muted" style="margin-top:10px">Ocean Sunset — Relaxing View · 1:32 · © 2026 Gram, free to save and share.</p>
+  </section>
+
+  <section class="card">
+    <h2>Camera and microphone</h2>
+    <p>Gram asks for the camera or microphone only when a web page requests them. Tap to see the prompt.</p>
+    <p style="margin-top:14px"><button class="btn" id="test-camera" type="button" style="border:0;font:inherit;cursor:pointer">Test camera</button></p>
+    <p class="muted" id="camera-status"></p>
+    <video id="camera-preview" autoplay playsinline muted></video>
+  </section>
+</div>
+<footer>© 2026 Gram · <a href="../privacy/">Privacy</a> · <a href="../support/">Support</a></footer>
+</main>
+<script>
+  document.getElementById('test-camera').addEventListener('click', async function () {
+    var status = document.getElementById('camera-status');
+    var preview = document.getElementById('camera-preview');
+    try {
+      var stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+      preview.srcObject = stream;
+      preview.style.display = 'block';
+      status.textContent = 'Camera and microphone are on. Nothing is recorded or sent anywhere.';
+      setTimeout(function () {
+        stream.getTracks().forEach(function (track) { track.stop(); });
+        preview.style.display = 'none';
+        status.textContent = 'Turned off again.';
+      }, 8000);
+    } catch (error) {
+      status.textContent = 'Not allowed: ' + error.name;
+    }
+  });
+</script>
+</body>
+</html>
