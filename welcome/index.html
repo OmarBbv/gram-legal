@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Welcome to Gram</title>
+<style>
+:root{--bg:#F4F6FA;--card:#fff;--ink:#14161c;--soft:#5b6170;--azure:#1F6FEB;--line:rgba(20,30,60,.08)}
+@media (prefers-color-scheme:dark){:root{--bg:#0E1116;--card:#181C23;--ink:#F2F4F8;--soft:#9AA3B2;--azure:#3B8BFF;--line:rgba(255,255,255,.08)}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,"SF Pro Text","Helvetica Neue",sans-serif;padding:max(24px,env(safe-area-inset-top)) 18px 40px;max-width:560px;margin:0 auto}
+.logo{width:56px;height:56px;border-radius:14px;background:#F1ECE3;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+h1{font-family:"New York","Iowan Old Style",Georgia,serif;font-size:34px;line-height:1.1;letter-spacing:-.4px}
+h1 span{color:var(--azure)}
+.lead{font-size:16px;line-height:1.45;color:var(--soft);margin:10px 0 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.toggle b{display:block;font-size:16px}.toggle small{font-size:13px;color:var(--soft)}
+.sw{width:52px;height:32px;border-radius:16px;background:#D5DAE3;position:relative;flex-shrink:0;border:0;cursor:pointer}
+.sw:after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:13px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s}
+.on .sw{background:#E5484D}.on .sw:after{left:23px}
+.promo{display:none;border-radius:16px;margin-bottom:14px;padding:14px 16px;position:relative;overflow:hidden}
+.on .promo{display:block}
+.promo .tag{position:absolute;top:8px;right:10px;font-size:10px;font-weight:700;background:rgba(0,0,0,.55);color:#fff;padding:2px 6px;border-radius:5px}
+.p1{background:linear-gradient(90deg,#FF2D55,#FF9500);color:#fff}
+.p1 b{font-size:22px;display:block}.p1 span{font-size:13px}
+.p2{background:#FFE14D;color:#1a1a1a;border:3px dashed #E5484D;text-align:center}
+.p2 b{font-size:19px;display:block;margin-bottom:4px}
+.p2 i{display:inline-block;margin-top:8px;background:#22C55E;color:#fff;font-style:normal;font-weight:700;padding:8px 18px;border-radius:10px}
+.hidden-note{font-size:12px;color:var(--soft);display:flex;align-items:center;gap:6px;margin:-4px 2px 12px}
+.on .hidden-note{display:none}
+.hidden-note:before{content:"";width:8px;height:8px;border-radius:4px;background:#22C55E}
+.video{border-radius:18px;overflow:hidden;background:#0b1622;margin-bottom:8px}
+.video video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#0b1622}
+.hint{font-size:14px;color:var(--soft);line-height:1.45;margin-bottom:18px}
+.hint b{color:var(--azure)}
+h2{font-size:18px;margin:6px 0 10px}
+.f{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}
+.f:first-of-type{border-top:0}
+.f i{width:30px;height:30px;border-radius:9px;background:rgba(31,111,235,.12);color:var(--azure);display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;flex-shrink:0}
+.f b{display:block;font-size:15px}.f span{font-size:13px;color:var(--soft)}
+.foot{font-size:12px;color:var(--soft);margin-top:18px;line-height:1.4}
+</style>
+</head>
+<body>
+<!-- Gram's first page after onboarding: what the ad blocker hides, and how a
+     video is saved. The "ads" are drawn by this page and named so that no
+     filter list hides them, so the switch can show them. The video is the
+     developer's own illustration from ../demo/, free to save. -->
+<div class="logo"><svg width="34" height="34" viewBox="0 0 46 46" aria-hidden="true"><circle cx="23" cy="23" r="20" fill="#17171A"/><path d="M12 34 L34 12" stroke="#F1ECE3" stroke-width="6" stroke-linecap="round"/></svg></div>
+<h1 data-t="title">Welcome to <span>Gram</span></h1>
+<p class="lead" data-t="lead">A quieter web, and the videos you love, saved for offline.</p>
+
+<div id="wrap">
+  <div class="card toggle">
+    <div><b data-t="toggle">See what Gram blocks</b><small data-t="toggleSub">Turn on to show this page with its ads</small></div>
+    <button class="sw" id="sw" role="switch" aria-checked="false" aria-label="Show ads"></button>
+  </div>
+
+  <div class="promo p1"><span class="tag">AD</span><b data-t="ad1">MEGA SALE −70%</b><span data-t="ad1sub">Only today! Tap now before it ends ⏰</span></div>
+  <div class="hidden-note" data-t="hid1">An ad was here. Gram hid it.</div>
+
+  <div class="video"><video src="../demo/aurora.mp4" poster="../demo/aurora.jpg" controls playsinline preload="metadata"></video></div>
+  <p class="hint" data-t="hint">Play the video, then tap the <b>blue download button</b> in the address bar to keep it on your iPhone.</p>
+
+  <div class="promo p2"><span class="tag">AD</span><b data-t="ad2">🎉 You won an iPhone!</b><span data-t="ad2sub">Claim your prize in 60 seconds</span><br><i data-t="ad2cta">CLAIM NOW</i></div>
+  <div class="hidden-note" data-t="hid2">A pop-up ad was here. Gram hid it.</div>
+</div>
+
+<div class="card">
+  <h2 data-t="whatTitle">What Gram does for you</h2>
+  <div class="f"><i>✓</i><div><b data-t="f1">Blocks ads and trackers</b><span data-t="f1sub">Pages load faster and nobody follows you around.</span></div></div>
+  <div class="f"><i>↓</i><div><b data-t="f2">Saves videos and files</b><span data-t="f2sub">Watch them later, even with no signal.</span></div></div>
+  <div class="f"><i>◐</i><div><b data-t="f3">Private tabs with Face ID</b><span data-t="f3sub">What you open there stays yours.</span></div></div>
+</div>
+<p class="foot" data-t="foot">This page is made by Gram. The ads on it are examples, not real offers.</p>
+
+<script>
+(function () {
+  var T = {
+    de: {
+      title: 'Willkommen bei <span>Gram</span>',
+      lead: 'Ein ruhigeres Web, und deine Lieblingsvideos offline gespeichert.',
+      toggle: 'Sieh, was Gram blockiert', toggleSub: 'Einschalten, um diese Seite mit Werbung zu sehen',
+      ad1: 'MEGA-SALE −70 %', ad1sub: 'Nur heute! Jetzt tippen, bevor es vorbei ist ⏰',
+      hid1: 'Hier war Werbung. Gram hat sie ausgeblendet.',
+      hint: 'Spiel das Video ab und tippe dann in der Adressleiste auf den <b>blauen Download-Button</b>, um es auf deinem iPhone zu behalten.',
+      ad2: '🎉 Du hast ein iPhone gewonnen!', ad2sub: 'Hol dir deinen Preis in 60 Sekunden', ad2cta: 'JETZT HOLEN',
+      hid2: 'Hier war ein Pop-up. Gram hat es ausgeblendet.',
+      whatTitle: 'Was Gram für dich tut',
+      f1: 'Blockiert Werbung und Tracker', f1sub: 'Seiten laden schneller, und niemand verfolgt dich.',
+      f2: 'Speichert Videos und Dateien', f2sub: 'Sieh sie später an, auch ohne Netz.',
+      f3: 'Private Tabs mit Face ID', f3sub: 'Was du dort öffnest, bleibt bei dir.',
+      foot: 'Diese Seite ist von Gram. Die Werbung darauf ist nur ein Beispiel, kein echtes Angebot.'
+    },
+    tr: {
+      title: '<span>Gram</span>’a hoş geldin',
+      lead: 'Daha sakin bir web, sevdiğin videolar da çevrimdışı izlemek için kayıtlı.',
+      toggle: 'Gram neyi engelliyor, gör', toggleSub: 'Bu sayfayı reklamlarıyla görmek için aç',
+      ad1: 'MEGA İNDİRİM −%70', ad1sub: 'Sadece bugün! Bitmeden hemen dokun ⏰',
+      hid1: 'Burada bir reklam vardı. Gram gizledi.',
+      hint: 'Videoyu oynat, sonra adres çubuğundaki <b>mavi indirme düğmesine</b> dokunarak iPhone’una kaydet.',
+      ad2: '🎉 iPhone kazandın!', ad2sub: 'Ödülünü 60 saniye içinde al', ad2cta: 'HEMEN AL',
+      hid2: 'Burada bir açılır reklam vardı. Gram gizledi.',
+      whatTitle: 'Gram senin için ne yapar',
+      f1: 'Reklamları ve izleyicileri engeller', f1sub: 'Sayfalar daha hızlı açılır, kimse seni takip etmez.',
+      f2: 'Videoları ve dosyaları kaydeder', f2sub: 'Sonra izle, internet olmasa bile.',
+      f3: 'Face ID’li gizli sekmeler', f3sub: 'Orada açtıkların sende kalır.',
+      foot: 'Bu sayfa Gram’ındır. Üzerindeki reklamlar örnektir, gerçek teklif değildir.'
+    }
+  };
+  var lang = (new URLSearchParams(location.search).get('lang') || navigator.language || 'en').slice(0, 2).toLowerCase();
+  var table = T[lang];
+  if (table) {
+    document.documentElement.lang = lang;
+    document.title = (table.title || '').replace(/<[^>]+>/g, '');
+    document.querySelectorAll('[data-t]').forEach(function (node) {
+      var text = table[node.getAttribute('data-t')];
+      if (text) { node.innerHTML = text; }
+    });
+  }
+  var wrap = document.getElementById('wrap');
+  var sw = document.getElementById('sw');
+  sw.addEventListener('click', function () {
+    var on = wrap.classList.toggle('on');
+    sw.setAttribute('aria-checked', on ? 'true' : 'false');
+  });
+})();
+</script>
+</body>
+</html>
