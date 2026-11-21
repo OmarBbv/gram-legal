@@ -151,8 +151,10 @@ h2{font-size:18px;margin:6px 0 10px}
     skip: 'Skip'
   };
   var G = function (key) { return (table && table[key]) || GUIDE[key]; };
-  var seen = false;
-  try { seen = localStorage.getItem('gramWelcomeGuide') === 'done'; } catch (e) { seen = false; }
+  // Every visit gets the guide: Gram opens this page once, after onboarding,
+  // and a remembered "done" kept it away after Reset onboarding as well.
+  // Skip ends it for the visit.
+  try { localStorage.removeItem('gramWelcomeGuide'); } catch (e) {}
   var video = document.querySelector('#video video');
   var bubble = null;
   var focused = null;
@@ -162,7 +164,6 @@ h2{font-size:18px;margin:6px 0 10px}
   }
   function finish() {
     clear();
-    try { localStorage.setItem('gramWelcomeGuide', 'done'); } catch (e) {}
   }
   function point(target, title, body, place, caretAt) {
     clear();
@@ -187,7 +188,7 @@ h2{font-size:18px;margin:6px 0 10px}
       bubble.classList.add('show');
     }, 350);
   }
-  if (!seen) {
+  {
     var card = document.getElementById('toggleCard');
     setTimeout(function () { point(card, G('g1t'), G('g1b'), 'above', sw); }, 700);
     sw.addEventListener('click', function () {
